@@ -1,0 +1,12 @@
+---
+ - name: install puppet
+   gather_facts: false
+   hosts: all
+   become: true
+   tasks:
+       - name: install puppet repository
+         command: rpm -ivh https://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm
+         args:
+             creates: /etc/yum.repos.d/puppetlabs.repo
+       - name: install puppet client
+         yum: name=puppet state=present

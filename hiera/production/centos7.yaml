@@ -1,0 +1,4 @@
+---
+# define classes specific to the vagrant box
+classes:
+    - profiles::database

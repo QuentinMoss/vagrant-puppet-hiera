@@ -1,0 +1,13 @@
+---
+# define common classes for all nodes in production
+classes:
+    - profiles::base
+
+# configure ntp
+ntp::restrict: []
+ntp::enable: true
+ntp::servers:
+  - 0.us.pool.ntp.org iburst
+  - 1.us.pool.ntp.org iburst
+  - 2.us.pool.ntp.org iburst
+  - 3.us.pool.ntp.org iburst
