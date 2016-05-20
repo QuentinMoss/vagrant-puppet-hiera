@@ -2,3 +2,39 @@
 # define classes specific to the vagrant box
 classes:
     - profiles::database
+
+mysql:
+    root_password: "6fgrJNh5HQqB3ZbqiwC4D5qtEz8LvVJ1"
+
+    # define a base set of permissions
+    default_permissions: &mysql_default_permissions
+        - SELECT
+        - INSERT
+        - UPDATE
+        - DELETE
+        - CREATE
+        - DROP
+        - INDEX
+        - CREATE TEMPORARY TABLES
+        - LOCK TABLES
+        - EXECUTE
+        - SHOW VIEW
+
+    # define schemas/databases
+    databases:
+        - name: schema1
+          charset: utf8
+          collate: utf8_unicode_ci
+        - name: schema2
+          charset: utf8
+          collate: utf8_unicode_ci
+    # define mysql users
+    users:
+        - name: admin
+          host: "%"
+          password: "UBMvQyzKEBy74JIIA3biDFqSPWsDNNQy"
+          grants:
+              - table: schema1.*
+                options: GRANT
+                # use default privileges
+                privileges: *mysql_default_permissions

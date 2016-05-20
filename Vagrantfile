@@ -20,6 +20,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vb.customize ["modifyvm", :id, "--memory", "1024"]
     end
 
+    # don't run guest update
+    if Vagrant.has_plugin?('vagrant-vbguest')
+        config.vbguest.auto_update = false
+    end
+
     # install puppet with ansible :facepalm:
     config.vm.provision "ansible", run: "once" do |ansible|
         ansible.playbook = "vagrant/playbook.yml"
@@ -28,7 +33,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # provision with puppet
     config.vm.provision "puppet" do |puppet|
         # allow custom args
-        puppet.options = ENV.fetch("PUPPET_ARGS", "")
+        puppet.options = [ENV.fetch("PUPPET_ARGS", ""), "--parser future"].join(" ")
 
         # setup hiera
         puppet.hiera_config_path = "hiera.yml"
