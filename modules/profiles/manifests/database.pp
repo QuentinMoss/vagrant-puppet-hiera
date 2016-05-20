@@ -1,3 +1,3 @@
 class profiles::database {
-    include roles::mangodb
+    include roles::mysql
 }
